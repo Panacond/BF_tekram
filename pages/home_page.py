@@ -10,13 +10,15 @@ class HomePage(BasePage):
         "button_enter_select_account": ('XPATH', "//button[@type='submit']"),
     }
 
+    data_base = read_data.SearchData("../recourses/data")
+
     def input_email(self):
-        # email = read_data.search_element('email')
-        self.email.set_text("")
+        email = self.data_base.search_element('email')
+        self.email.set_text(email)
 
     def input_password(self):
-        # password = read_data.search_element('password')
-        self.password.set_text("")
+        password = self.data_base.search_element('password')
+        self.password.set_text(password)
 
     def click_button_come_in(self):
         self.button_come_in.click_button()
@@ -28,6 +30,7 @@ class HomePage(BasePage):
         # self.button_xiaomi.click_button()
         self.driver.find_element_by_xpath(self.locators.get("button_xiaomi")[1]).click()
 
+
 if __name__ == '__main__':
-    data = read_data.read_file('recourses/data')
-    print(data)
+    data = read_data.SearchData("../recourses/data")
+    assert data.search_element("test") == "hello_word!", "incorrect file initial data"
