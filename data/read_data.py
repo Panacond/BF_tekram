@@ -22,5 +22,5 @@ class SearchData:
 
 
 if __name__ == '__main__':
-    data = SearchData("recourses/data")
+    data = SearchData("../recourses/data")
     assert data.search_element("test") == "hello_word!", "incorrect file initial data"

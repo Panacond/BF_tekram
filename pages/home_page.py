@@ -10,7 +10,7 @@ class HomePage(BasePage):
         "button_enter_select_account": ('XPATH', "//button[@type='submit']"),
     }
 
-    data_base = read_data.SearchData("../recourses/data")
+    data_base = read_data.SearchData("recourses/data")
 
     def input_email(self):
         email = self.data_base.search_element('email')
