@@ -8,12 +8,12 @@ class SearchData:
 
     def __read_file(self):
         fill_name_file = str(self.path_file) + '.csv'
-        l = []
+        data_list = []
         with open(fill_name_file, 'r', newline='', encoding='utf-8') as file:
             reader = csv.reader(file)
             for row in reader:
-                l = l + [row]
-        return l
+                data_list = data_list + [row]
+        return data_list
 
     def search_element(self, key_word):
         for i in self.data:
@@ -21,6 +21,21 @@ class SearchData:
                 return i[1]
 
 
+def write_csv(path, data_list):
+    with open(path + "_save.csv", 'w', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        for row in data_list:
+            writer.writerow(row)
+
+
 if __name__ == '__main__':
-    data = SearchData("../recourses/data")
+    path = "../recourses/data"
+    data = SearchData(path)
     assert data.search_element("test") == "hello_word!", "incorrect file initial data"
+    list_data = [["first", "01"],
+                 ["second", "02"]
+                 ]
+    write_csv(path, list_data)
+    data_save = SearchData(path +"_save")
+    assert data_save.search_element("first") == "01", "incorrect file save data"
+
