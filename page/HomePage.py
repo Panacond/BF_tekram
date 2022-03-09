@@ -1,5 +1,4 @@
 from page.BasePage import BasePage
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from page.BasePage import screen
 
@@ -9,7 +8,8 @@ class HomePage(BasePage):
     PASSWORD = "//input[@name='pass']"
     BUTTON_COME_IN ="//button[@name='login']"
     BUTTON_ENTER_SELECT_ACCOUNT = "//button[@type='submit']"
-    SEARCH = "//input[@type='search']"
+    # SEARCH = "//input[@type='search']"
+    SEARCH ="https://www.facebook.com/search/top?q={search}"
     SEARCH_CLICK = "//span[text()='Search for ']"
     SOME_TEXT = "//span[contains(text(),'{text}')]"
 
@@ -32,9 +32,13 @@ class HomePage(BasePage):
         self.driver.find_element(By.XPATH, self.BUTTON_ENTER_SELECT_ACCOUNT).click()
 
     @screen
-    def input_search(self, text, **kwargs):
-        self.driver.find_element(By.XPATH, self.SEARCH).send_keys(text)
-        self.driver.find_element(By.XPATH, self.SEARCH_CLICK).click()
+    def input_search(self, **kwargs):
+        """text, description"""
+        # https://www.facebook.com/search/top?q={search}
+        url = self.SEARCH.format(search=kwargs['text'])
+        self.driver.get(url)
+        # self.driver.find_element(By.XPATH, self.SEARCH).send_keys(text)
+        # self.driver.find_element(By.XPATH, self.SEARCH_CLICK).click()
 
     @screen
     def some_text(self, text, **kwargs):

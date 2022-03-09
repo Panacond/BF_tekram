@@ -4,6 +4,7 @@ from page.HomePage import HomePage
 from page.group_page import GroupPage
 import os
 from screen_recorder_sdk import screen_recorder
+from data.read_data import write_csv
 
 
 class BaseTest(unittest.TestCase):
@@ -27,6 +28,9 @@ class BaseTest(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.driver.get("https://facebook.com/")
         self.driver.maximize_window()
+        one_row = [["time", HomePage.text_time_now()]]
+        write_csv(HomePage.PATH_SAVE_DATA + "data", one_row)
+
 
     def tearDown(self):
         self.driver.close()
