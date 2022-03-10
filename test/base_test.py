@@ -2,6 +2,7 @@ import unittest
 from selenium import webdriver
 from page.HomePage import HomePage
 from page.group_page import GroupPage
+from page.one_foto_page import OneFotoPage
 import os
 from screen_recorder_sdk import screen_recorder
 from data.read_data import write_csv
@@ -9,11 +10,11 @@ from data.read_data import write_csv
 
 class BaseTest(unittest.TestCase):
     
-    DEFAULT_TIMEOUT = 100
+    DEFAULT_TIMEOUT = 50
 
     def setUp(self):
 
-        path = HomePage.PATH_SAVE_IMAGE
+        path = HomePage.PATH_SAVE_SCREENSHOTS
         # makes list file and delete
         for file in os.listdir(path + '.'):
             print(file)
@@ -31,7 +32,6 @@ class BaseTest(unittest.TestCase):
         one_row = [["time", HomePage.text_time_now()]]
         write_csv(HomePage.PATH_SAVE_DATA + "data", one_row)
 
-
     def tearDown(self):
         self.driver.close()
         if HomePage.NAME_SYSTEM:
@@ -43,3 +43,5 @@ class BaseTest(unittest.TestCase):
     def getGroupPage(self):
         return GroupPage(self.driver)
 
+    def getOneFotoPage(self):
+        return OneFotoPage(self.driver)

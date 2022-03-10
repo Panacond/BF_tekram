@@ -16,7 +16,8 @@ def screen(func):
 
 class BasePage(object):
     NAME_SYSTEM = "linux" == print(sys.platform)
-    PATH_SAVE_IMAGE = "recourses/screenshot/"
+    PATH_SAVE_SCREENSHOTS = "recourses/screenshot/"
+    PATH_SAVE_IMAGE = "recourses/foto/"
     PATH_SAVE_DATA = "recourses/"
     data_base = read_data.SearchData(PATH_SAVE_DATA + "data")
 
@@ -39,7 +40,7 @@ class BasePage(object):
         return now_time
 
     def make_screenshot(self, description="_"):
-        now_time = self.PATH_SAVE_IMAGE + self.text_time_now() + "_" + description + '.png'
+        now_time = self.PATH_SAVE_SCREENSHOTS + self.text_time_now() + "_" + description + '.png'
         self.driver.save_screenshot(now_time)
 
     @screen

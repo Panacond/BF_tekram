@@ -97,18 +97,19 @@ class GroupPage(BasePage):
 
     def save_image(self):
         now_time = str(self.text_time_now())
-        with open(self.PATH_SAVE_IMAGE + now_time + '_img.jpg', 'wb') as file:
+        with open(self.PATH_SAVE_SCREENSHOTS + now_time + '_img.jpg', 'wb') as file:
             img = self.driver.find_element(By.XPATH, self.SAVE_IMAGE)
             file.write(img.screenshot_as_png)
 
     def save_comment(self):
-        comment_list = self.driver.find_elements(By.XPATH, self.LIST_COMMENT)
+        comment_list = self.driver.find_elements(By.XPATH, GroupPage.LIST_COMMENT)
+        text_list_comment = ['comment']
         for item in comment_list:
             text = item.text
             text = text.replace('"', "'")
             text = text.replace('\n', "\t")
-            self.comment_list.append(text)
-        one_row = [self.comment_list]
+            text_list_comment.append(text)
+        one_row = [text_list_comment]
         write_csv(self.PATH_SAVE_DATA + "data", one_row)
 
     def save_data(self):
