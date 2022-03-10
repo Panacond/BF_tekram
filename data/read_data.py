@@ -22,7 +22,7 @@ class SearchData:
 
 
 def write_csv(path, data_list):
-    with open(path + "_save.csv", 'w', encoding='utf-8') as f:
+    with open(path + "_save.csv", 'a', encoding='utf-8') as f:
         writer = csv.writer(f)
         for row in data_list:
             writer.writerow(row)
