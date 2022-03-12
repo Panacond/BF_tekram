@@ -3,6 +3,7 @@ from selenium import webdriver
 from page.HomePage import HomePage
 from page.group_page import GroupPage
 from page.one_foto_page import OneFotoPage
+from page.marketplace_page import Marketplace
 import os
 from screen_recorder_sdk import screen_recorder
 from data.read_data import write_csv
@@ -45,3 +46,7 @@ class BaseTest(unittest.TestCase):
 
     def getOneFotoPage(self):
         return OneFotoPage(self.driver)
+
+    def getMarketplace(self):
+        return Marketplace(self.driver)
+

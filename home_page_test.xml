@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+    <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="8.904"
+               timestamp="2022-03-12T18:27:49.822939" hostname="akakiy-GL72-6QD">
+        <testcase classname="test.home_page_test.HomePageTest" name="test_check_in_to_site" time="8.514"/>
+    </testsuite>
+</testsuites>

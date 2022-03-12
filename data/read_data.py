@@ -16,10 +16,30 @@ class SearchData:
         return data_list
 
     def search_element(self, key_word):
+        data_list = []
         for i in self.data:
             if i[0] == key_word:
-                return i[1]
+                data_list.append(i[1])
+        if len(data_list) == 1:
+            result = data_list[0]
+        else:
+            result = data_list
+        return result
 
+    def read_all_list(self):
+        data_list = []
+        for i in self.data:
+            data_list.append(i)
+        return data_list
+
+    def list_element_by_before_name(self, name):
+        data_list = self.read_all_list()
+        list_by_name = []
+        for i in data_list:
+            for index, text in enumerate(i):
+                if text == name:
+                    list_by_name.append(i[index+1])
+        return list_by_name
 
 def write_csv(path, data_list):
     with open(path + "_save.csv", 'a', encoding='utf-8') as f:

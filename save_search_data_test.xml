@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+    <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="91.395"
+               timestamp="2022-03-12T18:27:58.764107" hostname="akakiy-GL72-6QD">
+        <testcase classname="test.save_search_data_test.SaveSearchDataTest" name="test_group" time="91.383"/>
+    </testsuite>
+</testsuites>
