@@ -12,7 +12,7 @@ class OneFotoPage(GroupPage):
         """[description]"""
         # https://www.facebook.com/photo/?fbid=146018534532011&set=g.1769191590003361
         # https://www.facebook.com/photo/?fbid={id_foto}&set=g.{id_group}
-        url = GroupPage.URL_ONE_FOTO.format(id_foto=self.id_foto, id_group=GroupPage.id_group)
+        url = GroupPage.URL_ONE_FOTO.format(id_foto=self.id_foto, id_group=self.id_group)
         self.driver.execute_script("window.open('');")
         # Switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[kwargs['index']])

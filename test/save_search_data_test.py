@@ -19,6 +19,7 @@ class SaveSearchDataTest(BaseTest):
         group_page.move_down_page(description="8", numbers=2)
         list_foto = group_page.get_list_foto(description="9")
         one_foto_page = self.getOneFotoPage()
+        one_foto_page.id_group = group_page.id_group
         one_foto_page.set_id_foto(list_foto[0])
         one_foto_page.one_foto_in_new_tab(description="10", index=1)
         one_foto_page.go_first_tab()
