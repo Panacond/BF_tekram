@@ -15,9 +15,10 @@ def screen(func):
 
 
 class BasePage(object):
-    NAME_SYSTEM = "linux" != print(sys.platform)
+    NAME_SYSTEM = "linux" == print(sys.platform)
     PATH_SAVE_SCREENSHOTS = "recourses/screenshot/"
     PATH_SAVE_IMAGE = "recourses/foto/"
+    PATH_SAVE_IMAGE = "recourses/screenshot/"
     PATH_SAVE_DATA = "recourses/"
     data_base = read_data.SearchData(PATH_SAVE_DATA + "data")
 

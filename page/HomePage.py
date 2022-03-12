@@ -37,8 +37,6 @@ class HomePage(BasePage):
         # https://www.facebook.com/search/top?q={search}
         url = self.SEARCH.format(search=kwargs['text'])
         self.driver.get(url)
-        # self.driver.find_element(By.XPATH, self.SEARCH).send_keys(text)
-        # self.driver.find_element(By.XPATH, self.SEARCH_CLICK).click()
 
     @screen
     def some_text(self, text, **kwargs):

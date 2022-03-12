@@ -1,11 +1,17 @@
+from data.read_data import SearchData
+
+
 def group():
-    text = "https://www.facebook.com/groups/735549537228274/"
-    BUTTON_FOTO = "//a[@href='/groups/{group_id}/media/photos/']"
+    data = SearchData('../recourses/data_marketplace')
+    data_list = data.list_element_by_before_name("id")
+    text = '21287'
+    if text in data_list:
+        return False
+    return data_list
 
-
-    # return re.search(r"\d{15}", text).group(0)
-    group_id = "15000"
-    return BUTTON_FOTO.format(group_id=group_id)
 
 if __name__ == '__main__':
     print(group())
+    for i in range(1,3):
+        print(i)
+
