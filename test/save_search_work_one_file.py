@@ -9,10 +9,10 @@ class SaveSearchDataTest(BaseTest):
         home_page.input_email(description="1")
         home_page.input_password(description="2")
         home_page.click_button_come_in(description="3")
-        home_page.input_search(text="anime paint", description="4")
+        home_page.input_search(text="group paint", description="4")
         group_page = self.getGroupPage()
         list_group = group_page.get_list_group(description="5")
-        set_element = list_group[3]
+        set_element = list_group[1]
         group_page.set_id_group(set_element)
         group_page.one_group_click(description="6")
         group_page.click_media(description="7")

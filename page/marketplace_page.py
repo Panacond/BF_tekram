@@ -23,6 +23,8 @@ class Marketplace(GroupPage):
     now_time = "-"
     href = '-'
     id_item = '-'
+    list_href = []
+    list_id = []
 
     @screen
     def input_search(self, **kwargs):
@@ -34,6 +36,19 @@ class Marketplace(GroupPage):
     def get_list_ads(self, **kwargs):
         """description"""
         return self.driver.find_elements(By.XPATH, self.LIST_AD_XPATH)
+
+    @screen
+    def get_list_id_href_ads(self, **kwargs):
+        """description"""
+        list_href = []
+        list_id = []
+        list_ads = self.driver.find_elements(By.XPATH, self.LIST_AD_XPATH)
+        for element in list_ads:
+            list_href.append(element.get_attribute('href'))
+            list_id.append(str(re.search(r"(groups/)([^/]*)", self.href).group(2)))
+        self.list_href = list_href
+        self.list_id = list_id
+        return list_id
 
     def get_href_id_one_ads(self, element):
         self.href = element.get_attribute('href')
@@ -58,7 +73,15 @@ class Marketplace(GroupPage):
         """[description]"""
         self.driver.execute_script("window.open('');")
         self.driver.switch_to.window(self.driver.window_handles[kwargs['index']])
-        self.driver.get(self.page_url)
+        self.driver.get('https://www.facebook.com' + self.href)
+
+    @screen
+    def open_one_ads(self, **kwargs):
+        """[description]"""
+        for href in self.href:
+            if kwargs['ad_id'] in href:
+                return href
+        self.driver.get('https://www.facebook.com' + href)
 
     @screen
     def go_first_tab(self, **kwargs):

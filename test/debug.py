@@ -11,7 +11,10 @@ def group():
 
 
 if __name__ == '__main__':
-    print(group())
-    for i in range(1,3):
+    # print(group())
+    href = ['asf1dsfgd', 'sfsdf2rety', 'ertert5wdfgd']
+    data = "1"
+    for i in href:
+       if data in i:
         print(i)
 

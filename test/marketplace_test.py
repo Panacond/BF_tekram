@@ -20,8 +20,9 @@ class SaveSearchDataTest(BaseTest):
             marketplace_page.get_href_id_one_ads(ad)
             list_id = marketplace_page.get_list_data_id_list()
             boolean = True
-            if marketplace_page.id_item in list_id:
-                boolean = False
+            for i in list_id:
+                if marketplace_page.id_item in i:
+                    boolean = False
             if boolean:
                 marketplace_page.one_item_in_new_tab(description="8", index=1)
                 marketplace_page.get_data_page(description="9")
