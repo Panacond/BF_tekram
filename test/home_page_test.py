@@ -15,25 +15,3 @@ class HomePageTest(BaseTest):
         home_page.implicitly_wait(self.DEFAULT_TIMEOUT)
         assert home_page.some_text(text="s on your mind, Bill?", description="01-04 fin")
 
-
-# class TestTitle(BaseTest):
-#     def testTitle(self):
-#         home_page = self.getHomePage()
-#         text = home_page.getTitle()
-#         HOME_PAGE_TITLE = "AVIC™ - удобный интернет-магазин бытовой техники и электроники в Украине. | Avic";
-#         assert text == HOME_PAGE_TITLE
-
-# class SmartphonePageTest(BaseTest):
-#     def test_AddToCart(self):
-#         home_page = self.getHomePage()
-#         home_page.clickButtonCatalog()
-#         home_page.clickButtonPhonesAndAccessories()
-#         home_page.implicitly_wait(30)
-#         phones_accessories_page = self.getPhonesAndAccessoriesPage()
-#         phones_accessories_page.clickButtonSmartphones()
-#         phones_accessories_page.implicitly_wait(30)
-#         smartphone_page = self.getSmartphonePage()
-#         smartphone_page.clickFindModel()
-#         smartphone_page.waitVisibilityOfElement(30, smartphone_page.ADD_TO_CART)
-#         smartphone_page.clickButtonCheckout()
-#         assert True == smartphone_page.trueFindXiaomiPocoX3Pro8256GB()

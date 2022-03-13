@@ -63,6 +63,15 @@ class GroupPage(BasePage):
     def get_list_foto(self, **kwargs):
         return self.driver.find_elements(By.XPATH, self.LIST_FOTO)
 
+    @screen
+    def get_list_id_foto(self, **kwargs):
+        list_foto = self.driver.find_elements(By.XPATH, self.LIST_FOTO)
+        list_id = []
+        for element in list_foto:
+            href = element.get_attribute('href')
+            list_id.append(str(re.search(r"(fbid=)(.*)(&set)", href).group(2)))
+        return list_id
+
     def move_down_page(self, **kwargs):
         if kwargs["numbers"]:
             scroll = int(kwargs["numbers"]) + 1
@@ -120,4 +129,21 @@ class GroupPage(BasePage):
         ]
         write_csv(self.PATH_SAVE_DATA + "data", data_list)
 
+    @screen
+    def open_foto(self, **kwargs):
+        """[description]"""
+        url = GroupPage.URL_ONE_FOTO.format(id_foto=self.id_foto, id_group=self.id_group)
+        self.driver.get(url)
+
+    @screen
+    def open_foto_by_id(self, **kwargs):
+        """[description]"""
+        url = GroupPage.URL_ONE_FOTO.format(id_foto=kwargs['id_foto'], id_group=self.id_group)
+        self.driver.get(url)
+
+    def save_image_folder(self, id_foto):
+        now_time = str(self.text_time_now())
+        with open(self.PATH_SAVE_IMAGE + now_time + "_" + id_foto + '_img.jpg', 'wb') as file:
+            img = self.driver.find_element(By.XPATH, self.SAVE_IMAGE)
+            file.write(img.screenshot_as_png)
 
