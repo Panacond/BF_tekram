@@ -64,6 +64,6 @@ def load_image2():
 
 
 if __name__ == '__main__':
-    # load_image2()
+    load_image2()
     for i in range(1, 2):
         print(i)
