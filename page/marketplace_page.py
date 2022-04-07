@@ -12,12 +12,12 @@ class Marketplace(GroupPage):
     # URL_MARKETPLACE_SEARCH = "https://www.facebook.com/marketplace/115427551801302/search?query={search}"
     LIST_AD_XPATH = "//a[contains(@href,'/marketplace/item/')]"
     # LIST_PLACE_XPATH = "//a[contains(@href,'/marketplace/item/')]/div/div/div/span/div/span/span"
-    TITLE = "//span[@class='d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 qg6bub1s iv3no6db o0t2es00 f530mmz5 hnhda86s oo9gr5id']"
+    TITLE = "div.dati1w0a.qt6c0cv9.hv4rvrfc.discj3wi > span"
     DESCRIPTION = "//div[@class='ii04i59q a8nywdso f10w8fjw rz4wbd8a pybr56ya']/div/span"
-    PRICE = "//span[@class='d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 d3f4x2em mdeji52x a5q79mjw g1cxx5fr ekzkrbhg oo9gr5id']"
-    GEOLOCATION = "//div[contains(@style,'language=en')]"
-    LIST_BUTTON_FOTO = "//img[@class='k4urcfbm bixrwtb6 datstx6m']"
-    LARGE_FOTO = "//img[@alt='No photo description available.']"
+    PRICE = "div.j83agx80.cbu4d94t.buofh1pr.l9j0dhe7 > div.dati1w0a.qt6c0cv9.hv4rvrfc.discj3wi > div.aov4n071.j83agx80 > div > span"
+    GEOLOCATION = "//div[contains(@style,'language=')]"
+    LIST_BUTTON_FOTO = "div.giggcyz0.du4w35lb > div > div > div > div > img"
+    LARGE_FOTO = "div.bp9cbjyn.j83agx80.buofh1pr.taijpn5t.ni8dbmo4.stjgntxs.k4urcfbm.du4w35lb > span > div > img"
 
     one_row = []
     now_time = "-"
@@ -44,15 +44,16 @@ class Marketplace(GroupPage):
         list_id = []
         list_ads = self.driver.find_elements(By.XPATH, self.LIST_AD_XPATH)
         for element in list_ads:
-            list_href.append(element.get_attribute('href'))
-            list_id.append(str(re.search(r"(groups/)([^/]*)", self.href).group(2)))
+            item_href = element.get_attribute('href')
+            list_href.append(item_href)
+            list_id.append(str(re.search(r"item\/(\d*)", item_href).group(1)))
         self.list_href = list_href
-        self.list_id = list_id
+        self.list_id = list_href
         return list_id
 
     def get_href_id_one_ads(self, element):
         self.href = element.get_attribute('href')
-        self.id_item = str(re.search(r"(groups/)([^/]*)", self.href).group(2))
+        self.id_item = str(re.search(r"item\/(\d*)", self.href).group(1))
         # write_csv(self.PATH_SAVE_DATA + "data", one_row)
 
     def get_list_data_id_list(self):
@@ -60,28 +61,38 @@ class Marketplace(GroupPage):
         return data.list_element_by_before_name("id")
 
     def get_list_button_foto(self):
-        return self.driver.find_elements(self.LIST_BUTTON_FOTO)
+        return self.driver.find_elements(By.CSS_SELECTOR, self.LIST_BUTTON_FOTO)
+
+    def save_error(self, text, name_file = "image_error.txt"):
+        with open(name_file, "a", encoding='utf-8') as f:
+            f.write(text + "\n")
 
     def save_image(self):
         now_time = str(self.text_time_now())
-        with open(self.PATH_SAVE_IMAGE + now_time + '_' + self.id_item + '_img.jpg', 'wb') as file:
-            img = self.driver.find_element(By.XPATH, self.LARGE_FOTO)
-            file.write(img.screenshot_as_png)
+        try:
+            with open(self.PATH_SAVE_IMAGE + now_time + '_' + self.id_item + '_img.jpg', 'wb') as file:
+                img = self.driver.find_element(By.CSS_SELECTOR, self.LARGE_FOTO)
+                file.write(img.screenshot_as_png)
+        except:
+            self.save_error(text = self.id_item + now_time)
 
     @screen
     def one_item_in_new_tab(self, **kwargs):
         """[description]"""
         self.driver.execute_script("window.open('');")
         self.driver.switch_to.window(self.driver.window_handles[kwargs['index']])
-        self.driver.get('https://www.facebook.com' + self.href)
+        self.driver.get('https://www.facebook.com' + self.href )
 
     @screen
     def open_one_ads(self, **kwargs):
         """[description]"""
-        for href in self.href:
+        for href in self.list_href:
             if kwargs['ad_id'] in href:
-                return href
-        self.driver.get('https://www.facebook.com' + href)
+                self.driver.get(href)
+                self.href = href
+                self.id_item = kwargs['ad_id']
+                return True
+        # self.driver.get('https://www.facebook.com' + href)
 
     @screen
     def go_first_tab(self, **kwargs):
@@ -92,11 +103,11 @@ class Marketplace(GroupPage):
     def get_data_page(self, **kwargs):
         self.now_time = str(self.text_time_now())
         try:
-            title = self.driver.find_element(By.XPATH, self.TITLE).text
+            title = self.driver.find_element(By.CSS_SELECTOR, self.TITLE).text
         except:
             title = "-"
         try:
-            price = self.driver.find_element(By.XPATH, self.PRICE).text
+            price = self.driver.find_element(By.CSS_SELECTOR, self.PRICE).text
         except:
             price = "-"
         try:
@@ -111,11 +122,11 @@ class Marketplace(GroupPage):
         except:
             geolocation_x = "-"
             geolocation_y = "-"
-        self.one_row.append(["time", self.now_time,
-                             "href", self.href,
-                             "id", self.id_item,
-                             "title", title,
-                             "price", price,
-                             "description", description,
-                             "geolocation", geolocation_x, geolocation_y ])
+        self.one_row = [["time", self.now_time,
+                            "id", self.id_item,
+                            "href", self.href,
+                            "title", title,
+                            "price", price,
+                            "description", description,
+                            "geolocation", geolocation_x, geolocation_y ]]
         write_csv(self.PATH_SAVE_DATA + "data_marketplace", self.one_row)
