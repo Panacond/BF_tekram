@@ -1,4 +1,3 @@
-import imp
 from test.base_test import BaseTest
 
 
@@ -19,10 +18,11 @@ class SaveSearchDataTest(BaseTest):
         number_new_ads = 0
         for ad_id in list_id:
             boolean = True
-            number_new_ads +=1
             for i in list_id_data:
                 if ad_id in i:
                     boolean = False
+                else:
+                    number_new_ads +=1
             if boolean:
                 marketplace_page.open_one_ads(ad_id=ad_id, description="4")
                 marketplace_page.get_data_page(description="5")
