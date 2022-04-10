@@ -4,11 +4,6 @@ from test.base_test import BaseTest
 class SaveSearchDataTest(BaseTest):
 
     def test_group(self):
-        home_page = self.getHomePage()
-        home_page.implicitly_wait(self.DEFAULT_TIMEOUT)
-        home_page.input_email(description="1")
-        home_page.input_password(description="2")
-        home_page.click_button_come_in(description="3")
         marketplace_page = self.getMarketplace()
         marketplace_page.input_search(description="1")
         marketplace_page.move_down_page(description="2", numbers=int(2))

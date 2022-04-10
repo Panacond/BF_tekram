@@ -18,6 +18,7 @@ class Marketplace(GroupPage):
     GEOLOCATION = "//div[contains(@style,'language=')]"
     LIST_BUTTON_FOTO = "div.giggcyz0.du4w35lb > div > div > div > div > img"
     LARGE_FOTO = "div.bp9cbjyn.j83agx80.buofh1pr.taijpn5t.ni8dbmo4.stjgntxs.k4urcfbm.du4w35lb > span > div > img"
+    EXPAND_TEXT = "span[class*='d2edcug0 hpfvmrgz qv66sw1b c1et5uql b0tq1wua jq4qci2q a3bd9o3v lrazzd5p']"
 
     one_row = []
     now_time = "-"
@@ -93,6 +94,11 @@ class Marketplace(GroupPage):
                 self.id_item = kwargs['ad_id']
                 return True
         # self.driver.get('https://www.facebook.com' + href)
+
+    @screen
+    def expand_text(self, **kwargs):
+        """[description]"""
+        self.driver.find_element(By.CSS_SELECTOR, self.EXPAND_TEXT).click()
 
     @screen
     def go_first_tab(self, **kwargs):

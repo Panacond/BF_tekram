@@ -9,7 +9,9 @@ if __name__ == "__main__":
     # pytest.main(["-v", "--junitxml=save_search_data_test.xml", "test/save_search_data_test.py"])
     # pytest.main(["-v", "--junitxml=save_search_work_one_file.xml", "test/save_search_work_one_file.py"])
     # pytest.main(["-x", "test/marketplace_test.py"])
-    '''It start code marketplace'''
+    '''It start code marketplace. Must unput password'''
+    # pytest.main(["-x", "test/marketplace_one_page_test.py"])
+    '''It start code marketplace. no password'''
     pytest.main(["-x", "test/marketplace_one_page_test.py"])
     # pytest.main(["-x", "test/"])
     # ReadWriteTest.test_group()
